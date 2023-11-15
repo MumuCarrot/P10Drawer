@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -49,8 +50,6 @@ namespace P10Drawer
             }
         }
 
-        // лист для записи координат
-        List<int> Keys { get; set; } = new List<int>();
         // Движение мышью в канвасе
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
@@ -69,8 +68,6 @@ namespace P10Drawer
 
                     if (cursor == CURSOR.Brush)
                     {
-                        // запись координат, (cols * 1000 + row) при условии, что таких пока нет
-                        if (!Keys.Contains((row * 1000) + column)) Keys.Add((row * 1000) + column);
 
                         if (!inversion)
                             rectangle = new Rectangle
@@ -95,11 +92,10 @@ namespace P10Drawer
                         Canvas.SetTop(rectangle, row * rectangle.Height);
 
                         drawCanvas.Children.Add(rectangle);
+
                     }
                     else if (cursor == CURSOR.Eraser)
                     {
-                        // удаление координат (cols * 1000 + row) при условии, что такие уже есть
-                        if (Keys.Contains((row * 1000) + column)) Keys.Remove((row * 1000) + column);
 
                         if (drawCanvas.InputHitTest(mousePosition) is UIElement element)
                         {
@@ -137,28 +133,26 @@ namespace P10Drawer
         // отправка данных
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Keys.Count > 0)
+            List<int> keys = new List<int>();
+
+            foreach (Rectangle rec in drawCanvas.Children) 
             {
-                string answer = string.Empty;
-                int tmp;
-                for (int i = 0; i < Cols; i++)
+                int x = (int)Canvas.GetTop(rec) / Size;
+                int y = (int)Canvas.GetLeft(rec) / Size;
+                if (!keys.Contains((x * 1000) + y)) keys.Add((x * 1000) + y);
+            }
+
+            string answer = string.Empty;
+
+            for (int i = 0; i < Cols; i++) 
+            {
+                for (int j = 0; j < Rows; j++) 
                 {
-                    for (int j = 0; j < Rows; j++)
-                    {
-                        tmp = (i * 1000) + j;
-                        if (Keys.Contains(tmp))
-                        {
-                            if (!inversion) answer += "1";
-                            else answer += "0";
-                        }
-                        else
-                        {
-                            if (!inversion) answer += "0";
-                            else answer += "1";
-                        }
-                    }
+                    if (keys.Contains((i * 1000) + j)) answer += "1";
+                    else answer += "0";
                 }
             }
+
         }
 
         // инверсия цветов
@@ -191,6 +185,7 @@ namespace P10Drawer
             }
         }
 
+        // ластик
         private void EraserButton_Click(object sender, RoutedEventArgs e)
         {
             cursor = CURSOR.Eraser;
