@@ -18,19 +18,35 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
-                    Background="#FF2D2D2D" Orientation="Vertical">
-            <Button x:Name="SendButton" Click="SendButton_Click"
-                    BorderThickness="0" Background="Transparent" 
-                    ToolTip="Send">
-                <Image Source="/Send.png" Margin="3"/>
-            </Button>
-            <Button x:Name="InversionButton" Click="InversionButton_Click"
-                    BorderThickness="0" Background="Transparent" 
-                    ToolTip="Inversion">
-                <Image Source="/InversionButton.png" Margin="2"/>
-            </Button>
-        </StackPanel>
+        <!--Панель управления программой-->
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+              Background="#FF2D2D2D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--Крутые приколы-->
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <Button x:Name="SendButton" Click="SendButton_Click"
+            BorderThickness="0" Background="Transparent" 
+            ToolTip="Send">
+                    <Image Source="/Send.png" Margin="3"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <Button x:Name="InversionButton" Click="InversionButton_Click"
+                        BorderThickness="0" Background="Transparent" 
+                        ToolTip="Inversion">
+                    <Image Source="/InversionButton.png" Margin="2"/>
+                </Button>
+                <Button x:Name="EraserButton" Click="EraserButton_Click"
+                        BorderThickness="0" Background="Transparent" 
+                        ToolTip="Eraser">
+                    <Image Source="/eraser.png" Margin="1"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--Поле для рисования-->
         <Grid x:Name="SuperGrid" Grid.Column="1" Margin="5">
             <Canvas Name="drawCanvas" Grid.Column="0" Grid.Row="0"
                     Grid.ColumnSpan="128" Grid.RowSpan="112"
@@ -39,6 +55,7 @@
                     MouseLeftButtonDown="Canvas_MouseLeftButtonDown" 
                     MouseLeftButtonUp="Canvas_MouseLeftButtonUp"/>
         </Grid>
+        <!--Настройка видимого-->
         <Grid Grid.Column="1" Grid.Row="2" Background="#FF252525">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
             <Button x:Name="GridVisionButton"
