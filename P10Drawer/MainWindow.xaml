@@ -7,7 +7,26 @@
         mc:Ignorable="d"
         Background="#FFD7D8F3"
         Title="Пиксельный Редактор" Height="630" Width="1011" MinHeight="529" MinWidth="1011">
-
+    <Window.Resources>
+        <Style TargetType="ToggleButton" x:Key="MouseStatus">
+            <Style.Setters>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Trigger.Setters>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <BlurEffect Radius="1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <!--Мейн грид-->
     <Grid>
         <!--10 раз отрезал 1 раз отмерил-->
@@ -33,21 +52,21 @@
             <!--Крутые приколы-->
             <Border Grid.Row="0" Background ="#FF444444"
                     Margin="0 10 0 0" BorderThickness="1" CornerRadius="8,8,8,8">
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Margin="0 10">
                     <Button x:Name="SendButton" Click="SendButton_Click"
                             BorderThickness="0" Background="Transparent" 
                             ToolTip="Send">
-                        <Image Source="/Send.png" Margin="3"/>
+                        <Image Source="/Source/Send.png" Margin="3"/>
                     </Button>
                     <Button x:Name="InversionButton" Click="InversionButton_Click"
                             BorderThickness="0" Background="Transparent" 
                             ToolTip="Inversion">
-                        <Image Source="/InversionButton.png" Margin="2"/>
+                        <Image Source="/Source/InversionButton.png" Margin="2"/>
                     </Button>
                     <Button x:Name="DeleteAllButoon" Click="DeleteAllButoon_Click"
                             BorderThickness="0" Background="Transparent" 
                             ToolTip="Delete all">
-                        <Image Source="/Trash.png" Margin="1"/>
+                        <Image Source="/Source/Trash.png" Margin="1"/>
                     </Button>
                 </StackPanel>
             </Border>
@@ -55,18 +74,18 @@
             <!--Состояние кисти-->
             <Border Grid.Row="1" Background ="#FF444444"
                     Margin="0 10 0 0" BorderThickness="1" CornerRadius="8,8,8,8">
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Margin="0 10">
                 
                     <ToggleButton x:Name="BrushButton" Click="ToggleButton_Click"
-                            BorderThickness="0" Background="Transparent" 
-                            ToolTip="Brush" IsChecked="True" Margin="0 10 0 0">
-                        <Image Source="/Brush.png" Margin="1"/>
+                                  ToolTip="Brush" IsChecked="True"
+                                  Style="{StaticResource MouseStatus}">
+                        <Image Source="/Source/Brush.png" Margin="1"/>
                     </ToggleButton>
 
-                    <ToggleButton x:Name="EraserButton" Click="ToggleButton_Click"
-                            BorderThickness="0" Background="Transparent" 
-                            ToolTip="Eraser" Margin="0 0 0 10">
-                        <Image Source="/eraser.png" Margin="1"/>
+                    <ToggleButton x:Name="EraserButton" Click="ToggleButton_Click" 
+                                  ToolTip="Eraser"
+                                  Style="{StaticResource MouseStatus}">
+                        <Image Source="/Source/Eraser.png" Margin="1"/>
                     </ToggleButton>
                 </StackPanel>
             </Border>
@@ -84,11 +103,16 @@
         <!--Настройка видимого-->
         <Grid Grid.Column="1" Grid.Row="2" Background="#FF252525">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-            <Button x:Name="GridVisionButton"
+                <Button x:Name="GridVisionButton"
                         BorderThickness="0" Background="Transparent" 
                         ToolTip="Show snap grid">
-                <Image Source="/Grid.png" Margin="0 1 2 0"/>
-            </Button>
+                    <Image Source="/Source/Grid.png" Margin="0 1 2 0"/>
+                </Button>
+                <Button x:Name="ResizeButton"
+                        BorderThickness="0" Background="Transparent" 
+                        ToolTip="Resize canvas" Click="ResizeButton_Click">
+                    <Image Source="/Source/Resize.png" Margin="0 1 2 0"/>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

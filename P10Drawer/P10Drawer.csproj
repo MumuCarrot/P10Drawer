@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ResizeWindow.xaml.cs">
+      <DependentUpon>ResizeWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +70,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResizeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,25 +102,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="InversionButton.png" />
+    <Resource Include="Source\Resize.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Source\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Send.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Grid.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="eraser.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Brush.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Trash.png" />
+    <Resource Include="Source\Brush.png" />
+    <Resource Include="Source\Eraser.png" />
+    <Resource Include="Source\Grid.png" />
+    <Resource Include="Source\InversionButton.png" />
+    <Resource Include="Source\Send.png" />
+    <Resource Include="Source\Trash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

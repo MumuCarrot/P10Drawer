@@ -15,9 +15,9 @@ namespace P10Drawer
     public partial class MainWindow : Window
     {
         // Колличество рядов
-        private int Rows { get; } = 112;
+        public static int Rows { get; set; } = 112;
         // Колличество строк
-        private int Cols { get; } = 128;
+        public static int Cols { get; set; } = 128;
         // Размер пикселя
         private int Size { get; } = 5;
         // Вулючена ли инверсия
@@ -33,18 +33,25 @@ namespace P10Drawer
         public MainWindow()
         {
             InitializeComponent();
-            CreateGridBySize(Cols, Rows);
+            CreateGridBySize();
         }
 
-        public void CreateGridBySize(int cols, int rows)
+        public void CreateGridBySize()
         {
-            for (int i = 0; i < cols; i++)
+            if (SuperGrid.ColumnDefinitions.Count > 0 && SuperGrid.RowDefinitions.Count > 0) 
+            { 
+                drawCanvas.Children.Clear();
+                SuperGrid.ColumnDefinitions.Clear();
+                SuperGrid.RowDefinitions.Clear();
+            }
+
+            for (int i = 0; i < Cols; i++)
             {
                 ColumnDefinition columnDefinition = new ColumnDefinition() { Width = new GridLength(Size, GridUnitType.Pixel) };
                 SuperGrid.ColumnDefinitions.Add(columnDefinition);
             }
 
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
                 RowDefinition rowDefinition = new RowDefinition() { Height = new GridLength(Size, GridUnitType.Pixel) };
                 SuperGrid.RowDefinitions.Add(rowDefinition);
@@ -216,6 +223,19 @@ namespace P10Drawer
                 // Если кнопка отжата, выполните соответствующие действия для выключения выбранного режима
                 cursor = CURSOR.Brush;
                 BrushButton.IsChecked = true;
+            }
+        }
+
+        // ресайз канваса
+        private void ResizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResizeWindow inputWindow = new ResizeWindow(); // Создание экземпляра нового окна
+            bool? result = inputWindow.ShowDialog(); // Отображение нового окна как диалогового
+
+            if (result.HasValue && result.Value)
+            {
+                // Код, который будет выполнен при подтверждении данных
+                CreateGridBySize();
             }
         }
     }
