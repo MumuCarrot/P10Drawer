@@ -8,7 +8,9 @@
         Background="#FFD7D8F3"
         Title="Пиксельный Редактор" Height="630" Width="1011" MinHeight="529" MinWidth="1011">
 
+    <!--Мейн грид-->
     <Grid>
+        <!--10 раз отрезал 1 раз отмерил-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"/>
             <ColumnDefinition/>
@@ -21,31 +23,55 @@
         <!--Панель управления программой-->
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
               Background="#FF2D2D2D">
+            
+            <!--Рубить если придумаю больше приколов-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            
             <!--Крутые приколы-->
-            <StackPanel Orientation="Vertical" Grid.Row="0">
-                <Button x:Name="SendButton" Click="SendButton_Click"
-            BorderThickness="0" Background="Transparent" 
-            ToolTip="Send">
-                    <Image Source="/Send.png" Margin="3"/>
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Row="1">
-                <Button x:Name="InversionButton" Click="InversionButton_Click"
-                        BorderThickness="0" Background="Transparent" 
-                        ToolTip="Inversion">
-                    <Image Source="/InversionButton.png" Margin="2"/>
-                </Button>
-                <Button x:Name="EraserButton" Click="EraserButton_Click"
-                        BorderThickness="0" Background="Transparent" 
-                        ToolTip="Eraser">
-                    <Image Source="/eraser.png" Margin="1"/>
-                </Button>
-            </StackPanel>
+            <Border Grid.Row="0" Background ="#FF444444"
+                    Margin="0 10 0 0" BorderThickness="1" CornerRadius="8,8,8,8">
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="SendButton" Click="SendButton_Click"
+                            BorderThickness="0" Background="Transparent" 
+                            ToolTip="Send">
+                        <Image Source="/Send.png" Margin="3"/>
+                    </Button>
+                    <Button x:Name="InversionButton" Click="InversionButton_Click"
+                            BorderThickness="0" Background="Transparent" 
+                            ToolTip="Inversion">
+                        <Image Source="/InversionButton.png" Margin="2"/>
+                    </Button>
+                    <Button x:Name="DeleteAllButoon" Click="DeleteAllButoon_Click"
+                            BorderThickness="0" Background="Transparent" 
+                            ToolTip="Delete all">
+                        <Image Source="/Trash.png" Margin="1"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+            
+            <!--Состояние кисти-->
+            <Border Grid.Row="1" Background ="#FF444444"
+                    Margin="0 10 0 0" BorderThickness="1" CornerRadius="8,8,8,8">
+                <StackPanel Orientation="Vertical">
+                
+                    <ToggleButton x:Name="BrushButton" Click="ToggleButton_Click"
+                            BorderThickness="0" Background="Transparent" 
+                            ToolTip="Brush" IsChecked="True" Margin="0 10 0 0">
+                        <Image Source="/Brush.png" Margin="1"/>
+                    </ToggleButton>
+
+                    <ToggleButton x:Name="EraserButton" Click="ToggleButton_Click"
+                            BorderThickness="0" Background="Transparent" 
+                            ToolTip="Eraser" Margin="0 0 0 10">
+                        <Image Source="/eraser.png" Margin="1"/>
+                    </ToggleButton>
+                </StackPanel>
+            </Border>
         </Grid>
+        
         <!--Поле для рисования-->
         <Grid x:Name="SuperGrid" Grid.Column="1" Margin="5">
             <Canvas Name="drawCanvas" Grid.Column="0" Grid.Row="0"

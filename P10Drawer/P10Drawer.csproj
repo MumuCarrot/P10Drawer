@@ -109,5 +109,11 @@
   <ItemGroup>
     <Resource Include="eraser.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Brush.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Trash.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

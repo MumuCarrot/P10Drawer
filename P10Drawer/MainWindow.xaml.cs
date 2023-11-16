@@ -2,6 +2,7 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -185,10 +186,37 @@ namespace P10Drawer
             }
         }
 
-        // ластик
-        private void EraserButton_Click(object sender, RoutedEventArgs e)
+        // удаление всего
+        private void DeleteAllButoon_Click(object sender, RoutedEventArgs e)
         {
-            cursor = CURSOR.Eraser;
+            drawCanvas.Children.Clear();
+        }
+
+        // состояние мыши
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ToggleButton clickedButton)) return;
+
+            if (clickedButton == BrushButton && BrushButton.IsChecked == true)
+            {
+                // Включить режим "Кисть"
+                cursor = CURSOR.Brush;
+                EraserButton.IsChecked = false; // Выключить режим "Ластик"
+                                                      // Дополнительные действия для включения режима "Кисть"
+            }
+            else if (clickedButton == EraserButton && EraserButton.IsChecked == true)
+            {
+                // Включить режим "Ластик"
+                cursor = CURSOR.Eraser;
+                BrushButton.IsChecked = false; // Выключить режим "Кисть"
+                                                     // Дополнительные действия для включения режима "Ластик"
+            }
+            else
+            {
+                // Если кнопка отжата, выполните соответствующие действия для выключения выбранного режима
+                cursor = CURSOR.Brush;
+                BrushButton.IsChecked = true;
+            }
         }
     }
 }
