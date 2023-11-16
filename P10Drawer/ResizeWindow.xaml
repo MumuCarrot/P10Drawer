@@ -28,7 +28,10 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        
+        <!--Отображалка почти аут оф май дрим-->
+        <Canvas x:Name="visualizeCanvas" Loaded="VisualizeCanvas_Loaded"/>
+
+
         <!--Кнопочки чнопочки-->
         <Border Grid.Column="1" Background ="#FFB1AFAF"
                 BorderThickness="1" CornerRadius="8,8,8,8">
@@ -41,9 +44,9 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="Width" FontFamily="Arial Rounded MT Bold" Margin="10 0"/>
                         <TextBlock x:Name="WidthCount" Grid.Row="0" Text="1" HorizontalAlignment="Right" FontFamily="Arial Rounded MT Bold" Margin="10 0"/>
-                        <Slider x:Name="WidhtSlider" Width="Auto" Grid.Row="1"
+                        <Slider x:Name="WidthSlider" Width="Auto" Grid.Row="1"
                             Minimum="1" Maximum="4" Value="1" IsSnapToTickEnabled="True"
-                            TickFrequency="1" ValueChanged="WidhtSlider_ValueChanged"/>
+                            TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
                     </Grid>
                     <Grid Margin="0 5">
                         <Grid.RowDefinitions>
@@ -54,7 +57,7 @@
                         <TextBlock x:Name="HeightCount" Grid.Row="0" Text="1" HorizontalAlignment="Right" FontFamily="Arial Rounded MT Bold" Margin="10 0"/>
                         <Slider x:Name="HeightSlider" Width="Auto" Grid.Row="1"
                             Minimum="1" Maximum="7" Value="1" IsSnapToTickEnabled="True"
-                            TickFrequency="1" ValueChanged="HeightSlider_ValueChanged"/>
+                            TickFrequency="1" ValueChanged="Slider_ValueChanged"/>
                     </Grid>
                     <Button Style="{StaticResource ButtonStyle}"
                             Content="Confirm" Click="ButtonConfirm_Click"/>
