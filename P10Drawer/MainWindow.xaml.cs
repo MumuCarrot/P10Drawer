@@ -15,9 +15,9 @@ namespace P10Drawer
     public partial class MainWindow : Window
     {
         // Колличество рядов
-        public static int Rows { get; set; } = 112;
+        public static int Rows { get; set; } = 16;
         // Колличество строк
-        public static int Cols { get; set; } = 128;
+        public static int Cols { get; set; } = 32;
         // Размер пикселя
         private int Size { get; } = 5;
         // Вулючена ли инверсия

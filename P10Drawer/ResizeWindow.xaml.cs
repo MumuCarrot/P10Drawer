@@ -19,19 +19,41 @@ namespace P10Drawer
     /// </summary>
     public partial class ResizeWindow : Window
     {
+        /// <summary>
+        /// Initialization of window dependencies
+        /// </summary>
         public ResizeWindow()
         {
             InitializeComponent();
+
+            InitVisualGrid();
         }
 
-        // Вызываем метод Slider_ValueChanged после того, как visualizeCanvas загрузился,
-        // чтобы убедиться, что его размеры уже определены
+        /// <summary>
+        /// Initialisation of external dependencies
+        /// </summary>
+        private void InitVisualGrid() 
+        {
+            HeightSlider.Value = MainWindow.Rows / 16;
+            WidthSlider.Value = MainWindow.Cols / 32;
+        }
+
+        /// <summary>
+        /// Call for Slider_ValueChanged after Canvas was loaded, to avert bugs
+        /// </summary>
+        /// <param name="sender">Sender element</param>
+        /// <param name="e">Sended event by sender</param>
         private void VisualizeCanvas_Loaded(object sender, RoutedEventArgs e)
         {
             Slider_ValueChanged(null, null);
         }
 
-        bool isFirst = true;
+        /// <summary>
+        /// Logic of Sliders
+        /// Initializes rectangles depending on slider values
+        /// </summary>
+        /// <param name="sender">Sender element</param>
+        /// <param name="e">Sended event by sender</param>
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (WidthSlider != null) WidthCount.Text = Math.Round(WidthSlider.Value).ToString();
@@ -69,6 +91,11 @@ namespace P10Drawer
             }
         }
 
+        /// <summary>
+        /// Confirmation
+        /// </summary>
+        /// <param name="sender">Sender element</param>
+        /// <param name="e">Sended event by sender</param>
         private void ButtonConfirm_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Cols = (int)(Math.Round(WidthSlider.Value) * 32);
@@ -77,6 +104,11 @@ namespace P10Drawer
             this.Close();
         }
 
+        /// <summary>
+        /// Rejecting just close window
+        /// </summary>
+        /// <param name="sender">Sender element</param>
+        /// <param name="e">Sended event by sender</param>
         private void ButtonReject_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
