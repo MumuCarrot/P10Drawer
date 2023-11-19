@@ -383,6 +383,7 @@
                                   Style="{StaticResource MouseStatus}">
                         <Image Source="/Source/Eraser.png" Margin="1"/>
                     </ToggleButton>
+
                 </StackPanel>
             </Border>
         </Grid>
@@ -402,7 +403,26 @@
         </ScrollViewer>
         <!--Настройка видимого-->
         <Grid Grid.Column="1" Grid.Row="2" Background="#FF252525">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding ElementName=SizeSlider, Path=Value}" 
+                           FontFamily="Bahnschrift" FontSize="15" Width="20"
+                           VerticalAlignment="Center" 
+                           Foreground="GhostWhite" />
+                <Slider x:Name="SizeSlider" Grid.Column="1"
+                        Width="200" Minimum="5" Maximum="40" Value="5" 
+                        IsSnapToTickEnabled="True" TickFrequency="5" 
+                        ValueChanged="SizeSlider_ValueChanged" VerticalAlignment="Center"/>
+            </Grid>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1" Margin="0 0 5 0">
                 <Button x:Name="GridVisionButton"
                         BorderThickness="0" Background="Transparent" 
                         ToolTip="Show snap grid">
@@ -414,6 +434,9 @@
                     <Image Source="/Source/Resize.png" Margin="0 1 2 0"/>
                 </Button>
             </StackPanel>
+
+
+
         </Grid>
     </Grid>
 

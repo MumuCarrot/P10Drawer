@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Text;
+using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,8 +19,8 @@ namespace P10Drawer
         // Колличество строк
         public static int Cols { get; set; } = 32;
         // Размер пикселя
-        private int Size { get; } = 5;
-        // Вулючена ли инверсия
+        private int Size { get; set; } = 5;
+        // Включена ли инверсия
         private bool inversion = false;
         // Состояние курсора
         private enum CURSOR
@@ -29,18 +29,25 @@ namespace P10Drawer
             Eraser
         }
         private CURSOR cursor = CURSOR.Brush;
+        // Переменная для сохранения месседжа
+        private string Save { get; set; } = string.Empty;
 
         public MainWindow()
         {
             InitializeComponent();
-            CreateGridBySize();
         }
 
-        public void CreateGridBySize()
+        public void CreateGridBySize(bool resizeWindow = false, bool sizeChange = false)
         {
-            if (SuperGrid.ColumnDefinitions.Count > 0 && SuperGrid.RowDefinitions.Count > 0) 
-            { 
+            if (resizeWindow)
+            {
                 drawCanvas.Children.Clear();
+                SuperGrid.ColumnDefinitions.Clear();
+                SuperGrid.RowDefinitions.Clear();
+            }
+
+            if (sizeChange)
+            {
                 SuperGrid.ColumnDefinitions.Clear();
                 SuperGrid.RowDefinitions.Clear();
             }
@@ -56,6 +63,9 @@ namespace P10Drawer
                 RowDefinition rowDefinition = new RowDefinition() { Height = new GridLength(Size, GridUnitType.Pixel) };
                 SuperGrid.RowDefinitions.Add(rowDefinition);
             }
+
+            if (sizeChange)
+                RecreateFromSave(Save);
         }
 
         // Движение мышью в канвасе
@@ -81,8 +91,8 @@ namespace P10Drawer
                         if (!inversion)
                             rectangle = new Rectangle
                             {
-                                Width = drawCanvas.ActualWidth / Cols,
-                                Height = drawCanvas.ActualHeight / Rows,
+                                Width = Size,
+                                Height = Size,
                                 Fill = Brushes.White,
                                 Stroke = Brushes.White,
                                 StrokeThickness = 1
@@ -90,8 +100,8 @@ namespace P10Drawer
                         else
                             rectangle = new Rectangle
                             {
-                                Width = drawCanvas.ActualWidth / Cols,
-                                Height = drawCanvas.ActualHeight / Rows,
+                                Width = Size,
+                                Height = Size,
                                 Fill = Brushes.Black,
                                 Stroke = Brushes.Black,
                                 StrokeThickness = 1
@@ -142,26 +152,40 @@ namespace P10Drawer
         // отправка данных
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            List<int> keys = new List<int>();
+            Save = GetCanvasInfo();
+        }
+        // информаци про текущее состояние объектов на канвасе
+        private string GetCanvasInfo()
+        {
+            List<string> keys = new List<string>();
 
-            foreach (Rectangle rec in drawCanvas.Children) 
+            foreach (Rectangle rec in drawCanvas.Children)
             {
                 int x = (int)Canvas.GetTop(rec) / Size;
                 int y = (int)Canvas.GetLeft(rec) / Size;
-                if (!keys.Contains((x * 1000) + y)) keys.Add((x * 1000) + y);
+                if (!keys.Contains($"{x}" + "#" + $"{y}")) keys.Add($"{x}" + "#" + $"{y}");
             }
 
             string answer = string.Empty;
 
-            for (int i = 0; i < Cols; i++) 
+            for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Rows; j++) 
+                for (int j = 0; j < Cols; j++)
                 {
-                    if (keys.Contains((i * 1000) + j)) answer += "1";
-                    else answer += "0";
+                    if (!inversion)
+                    {
+                        if (keys.Contains($"{i}" + "#" + $"{j}")) answer += "1";
+                        else answer += "0";
+                    }
+                    else if (inversion)
+                    {
+                        if (keys.Contains($"{i}" + "#" + $"{j}")) answer += "0";
+                        else answer += "1";
+                    }
                 }
             }
 
+            return answer;
         }
 
         // инверсия цветов
@@ -210,14 +234,14 @@ namespace P10Drawer
                 // Включить режим "Кисть"
                 cursor = CURSOR.Brush;
                 EraserButton.IsChecked = false; // Выключить режим "Ластик"
-                                                      // Дополнительные действия для включения режима "Кисть"
+                                                // Дополнительные действия для включения режима "Кисть"
             }
             else if (clickedButton == EraserButton && EraserButton.IsChecked == true)
             {
                 // Включить режим "Ластик"
                 cursor = CURSOR.Eraser;
                 BrushButton.IsChecked = false; // Выключить режим "Кисть"
-                                                     // Дополнительные действия для включения режима "Ластик"
+                                               // Дополнительные действия для включения режима "Ластик"
             }
             else
             {
@@ -236,8 +260,60 @@ namespace P10Drawer
             if (result.HasValue && result.Value)
             {
                 // Код, который будет выполнен при подтверждении данных
-                CreateGridBySize();
+                CreateGridBySize(resizeWindow: true);
             }
+        }
+
+        private void RecreateFromSave(string str)
+        {
+            if (drawCanvas != null)
+            {
+                drawCanvas.Children.Clear();
+                int iter = 0;
+                for (int i = 0; i < Rows; i++)
+                {
+                    for (int j = 0; j < Cols; j++)
+                    {
+                        if (str[iter] == '1') 
+                        {
+                            Rectangle rectangle;
+
+                            if (!inversion)
+                                rectangle = new Rectangle
+                                {
+                                    Width = Size,
+                                    Height = Size,
+                                    Fill = Brushes.White,
+                                    Stroke = Brushes.White,
+                                    StrokeThickness = 1
+                                };
+                            else
+                                rectangle = new Rectangle
+                                {
+                                    Width = Size,
+                                    Height = Size,
+                                    Fill = Brushes.Black,
+                                    Stroke = Brushes.Black,
+                                    StrokeThickness = 1
+                                };
+
+                            Canvas.SetLeft(rectangle, j * Size);
+                            Canvas.SetTop(rectangle, i * Size);
+
+                            drawCanvas.Children.Add(rectangle);
+                        }
+                        if ((iter + 1) < Rows * Cols) iter++;
+                    }
+                }
+            }
+        }
+
+        private void SizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Save = GetCanvasInfo();
+            Size = (int)SizeSlider.Value;
+
+            CreateGridBySize(sizeChange: true);
         }
     }
 }
