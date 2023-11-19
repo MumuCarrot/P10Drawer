@@ -65,16 +65,17 @@ namespace P10Drawer
             {
 
                 Point mousePosition = e.GetPosition(drawCanvas);
+                HitTestResult hitTestResult = VisualTreeHelper.HitTest(drawCanvas, mousePosition);
 
-                if (mousePosition.X >= 0 && mousePosition.X <= drawCanvas.ActualWidth - 1 &&
-                    mousePosition.Y >= 0 && mousePosition.Y <= drawCanvas.ActualHeight - 1)
+                if ((mousePosition.X >= 0 && mousePosition.X <= drawCanvas.ActualWidth - 1) &&
+                    (mousePosition.Y >= 0 && mousePosition.Y <= drawCanvas.ActualHeight - 1))
                 {
                     int column = (int)(mousePosition.X / (drawCanvas.ActualWidth / Cols));
                     int row = (int)(mousePosition.Y / (drawCanvas.ActualHeight / Rows));
 
                     Rectangle rectangle;
 
-                    if (cursor == CURSOR.Brush)
+                    if ((cursor == CURSOR.Brush) && (hitTestResult != null && !(hitTestResult.VisualHit is Rectangle)))
                     {
 
                         if (!inversion)
