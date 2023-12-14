@@ -106,7 +106,7 @@ namespace P10Drawer
                 RecreateFromSave(Save);
         }
         /// <summary>
-        /// Parsing canvas to binary array
+        /// Parse canvas to binary array
         /// 0 - black
         /// 1 - white
         /// </summary>
@@ -205,7 +205,7 @@ namespace P10Drawer
             }
         }
         /// <summary>
-        /// Drawing donts
+        /// Drawing dots
         /// </summary>
         private void Canvas_MouseClick(object sender, MouseEventArgs e)
         {
