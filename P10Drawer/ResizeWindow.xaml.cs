@@ -16,7 +16,6 @@ namespace P10Drawer
         public ResizeWindow()
         {
             InitializeComponent();
-
             InitVisualGrid();
         }
 
@@ -28,7 +27,6 @@ namespace P10Drawer
             HeightSlider.Value = MainWindow.Rows / 16;
             WidthSlider.Value = MainWindow.Cols / 32;
         }
-
         /// <summary>
         /// Call for Slider_ValueChanged after Canvas was loaded, to avert bugs
         /// </summary>
@@ -38,7 +36,6 @@ namespace P10Drawer
         {
             Slider_ValueChanged(null, null);
         }
-
         /// <summary>
         /// Logic of Sliders
         /// Initializes rectangles depending on slider values
@@ -81,7 +78,6 @@ namespace P10Drawer
                 }
             }
         }
-
         /// <summary>
         /// Confirmation
         /// </summary>
@@ -94,7 +90,6 @@ namespace P10Drawer
             DialogResult = true;
             this.Close();
         }
-
         /// <summary>
         /// Rejecting just close window
         /// </summary>

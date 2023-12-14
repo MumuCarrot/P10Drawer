@@ -8,7 +8,6 @@
         Title="ResizeWindow" Height="400" Width="600"
         Icon="/Source/ResizeM.png">
     <Window.Resources>
-        
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Style.Resources>
                 <Style TargetType="Border">
@@ -23,17 +22,16 @@
             </Style.Setters>
         </Style>
     </Window.Resources>
-    
+    <!--Main grid-->
     <Grid Margin="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <!--Отображалка почти аут оф май дрим-->
+        <!--Visualisat future matrix-->
         <Canvas x:Name="visualizeCanvas" Loaded="VisualizeCanvas_Loaded"/>
 
-
-        <!--Кнопочки чнопочки-->
+        <!--Control panel-->
         <Border Grid.Column="1" Background ="#FFB1AFAF"
                 BorderThickness="1" CornerRadius="8,8,8,8">
             <Grid VerticalAlignment="Center" Margin="5">
