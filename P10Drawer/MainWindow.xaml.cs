@@ -487,7 +487,7 @@ namespace P10Drawer
             else
             { 
                 WindowState = WindowState.Maximized;
-                MainGrid.Margin = new Thickness(5);
+                MainGrid.Margin = new Thickness(5, 5, 5, 50);
             }
         }
         #endregion // EO ToolBar methods
