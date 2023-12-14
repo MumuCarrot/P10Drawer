@@ -102,15 +102,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Source\Resize.png" />
+    <Resource Include="Source\logo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Source\Brush.png" />
-    <Resource Include="Source\Eraser.png" />
-    <Resource Include="Source\Grid.png" />
-    <Resource Include="Source\InversionButton.png" />
-    <Resource Include="Source\Send.png" />
-    <Resource Include="Source\Trash.png" />
+    <Resource Include="Source\BrushM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Source\EraserM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Source\SaveM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Source\DeleteAllM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Source\InversionM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Source\ResizeM.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

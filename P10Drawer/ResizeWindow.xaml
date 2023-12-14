@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:P10Drawer"
         mc:Ignorable="d" Background="#FFE2E2E4"
-        Title="ResizeWindow" Height="400" Width="600">
+        Title="ResizeWindow" Height="400" Width="600"
+        Icon="/Source/ResizeM.png">
     <Window.Resources>
         
         <Style TargetType="Button" x:Key="ButtonStyle">

@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace P10Drawer
@@ -32,7 +23,7 @@ namespace P10Drawer
         /// <summary>
         /// Initialisation of external dependencies
         /// </summary>
-        private void InitVisualGrid() 
+        private void InitVisualGrid()
         {
             HeightSlider.Value = MainWindow.Rows / 16;
             WidthSlider.Value = MainWindow.Cols / 32;

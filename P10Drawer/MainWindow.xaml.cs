@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.Common;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,6 +29,7 @@ namespace P10Drawer
             Eraser
         }
         private CURSOR cursor = CURSOR.Brush;
+
         // Переменная для сохранения месседжа
         private string Save { get; set; } = string.Empty;
 
@@ -153,7 +154,9 @@ namespace P10Drawer
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             Save = GetCanvasInfo();
+            Clipboard.SetData(DataFormats.Text, (Object)Save);
         }
+
         // информаци про текущее состояние объектов на канвасе
         private string GetCanvasInfo()
         {
@@ -274,7 +277,7 @@ namespace P10Drawer
                 {
                     for (int j = 0; j < Cols; j++)
                     {
-                        if (str[iter] == '1') 
+                        if (str[iter] == '1')
                         {
                             Rectangle rectangle;
 
@@ -314,6 +317,30 @@ namespace P10Drawer
             Size = (int)SizeSlider.Value;
 
             CreateGridBySize(sizeChange: true);
+        }
+
+        private void ToolBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void MaxemizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized) WindowState = WindowState.Normal;
+            else WindowState = WindowState.Maximized;
         }
     }
 }
