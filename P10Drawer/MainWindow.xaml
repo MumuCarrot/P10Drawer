@@ -331,7 +331,7 @@
     </Window.Resources>
     
     <!--Main grid-->
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"/>
             <ColumnDefinition/>

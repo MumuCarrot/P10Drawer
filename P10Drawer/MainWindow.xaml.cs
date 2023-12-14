@@ -421,8 +421,16 @@ namespace P10Drawer
         /// </summary>
         private void MaximizationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Maximized) WindowState = WindowState.Normal;
-            else WindowState = WindowState.Maximized;
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+                MainGrid.Margin = new Thickness(0);
+            }
+            else
+            { 
+                WindowState = WindowState.Maximized;
+                MainGrid.Margin = new Thickness(5);
+            }
         }
         #endregion // EO ToolBar methods
 
