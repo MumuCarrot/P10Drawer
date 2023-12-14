@@ -1,5 +1,5 @@
 # P10Drawer
-Here is an admin panel for P10Drawer.
+Here is an soft P10Drawer for our P10Project.
 My realization presents a simple editor with an included encoder for sending packets and other functions.
 
 ![image](https://github.com/MumuCarrot/P10Drawer/assets/138333895/4415b027-cefc-48c2-b193-54eb3ac2d2b0)
