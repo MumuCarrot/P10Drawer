@@ -435,7 +435,8 @@
                         Background="Black" MouseMove="Canvas_MouseMove"
                         MouseEnter ="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave"
                         MouseLeftButtonDown="Canvas_MouseLeftButtonDown" 
-                        MouseLeftButtonUp="Canvas_MouseLeftButtonUp"/>
+                        MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+                        MouseDown="Canvas_MouseClick"/>
             </Grid>
         </ScrollViewer>
         <!--Resize field-->

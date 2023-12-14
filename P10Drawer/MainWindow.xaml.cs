@@ -147,9 +147,67 @@ namespace P10Drawer
         // Drawing region
         #region Drawing region
         /// <summary>
-        /// Drawing
+        /// Drawing lines
         /// </summary>
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                Point mousePosition = e.GetPosition(drawCanvas);
+                HitTestResult hitTestResult = VisualTreeHelper.HitTest(drawCanvas, mousePosition);
+
+                if ((mousePosition.X >= 0 && mousePosition.X <= drawCanvas.ActualWidth - 1) &&
+                    (mousePosition.Y >= 0 && mousePosition.Y <= drawCanvas.ActualHeight - 1))
+                {
+                    int column = (int)(mousePosition.X / (drawCanvas.ActualWidth / Cols));
+                    int row = (int)(mousePosition.Y / (drawCanvas.ActualHeight / Rows));
+
+                    Rectangle rectangle;
+
+                    if ((cursor == CURSOR.Brush) && (hitTestResult != null && !(hitTestResult.VisualHit is Rectangle)))
+                    {
+
+                        if (!inversion)
+                            rectangle = new Rectangle
+                            {
+                                Width = Size,
+                                Height = Size,
+                                Fill = Brushes.White,
+                                Stroke = Brushes.White,
+                                StrokeThickness = 1
+                            };
+                        else
+                            rectangle = new Rectangle
+                            {
+                                Width = Size,
+                                Height = Size,
+                                Fill = Brushes.Black,
+                                Stroke = Brushes.Black,
+                                StrokeThickness = 1
+                            };
+
+                        Canvas.SetLeft(rectangle, column * rectangle.Width);
+                        Canvas.SetTop(rectangle, row * rectangle.Height);
+
+                        drawCanvas.Children.Add(rectangle);
+
+                    }
+                    else if (cursor == CURSOR.Eraser)
+                    {
+
+                        if (drawCanvas.InputHitTest(mousePosition) is UIElement element)
+                        {
+                            drawCanvas.Children.Remove(element);
+                        }
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Drawing donts
+        /// </summary>
+        private void Canvas_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
